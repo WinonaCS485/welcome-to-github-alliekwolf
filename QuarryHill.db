@@ -1,0 +1,28 @@
+--
+-- File generated with SQLiteStudio v3.2.1 on Tue Nov 19 09:43:40 2019
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: Camper
+CREATE TABLE Camper (camperID STRING PRIMARY KEY, firstName STRING, lastName STRING, age INTEGER, ageGroup STRING REFERENCES Class (ageGroup), city STRING, state STRING, emergencyContactName STRING, phoneNumber INTEGER, isMember BOOLEAN);
+
+-- Table: Class
+CREATE TABLE Class (classID STRING PRIMARY KEY, className STRING, ageGroup STRING, age STRING, price INT, classAbv STRING);
+
+-- Table: MedicalReleaseForm
+CREATE TABLE MedicalReleaseForm (formID INTEGER PRIMARY KEY, childName STRING, motherName STRING, fatherName STRING, otherName STRING, allergies STRING, asthmatic STRING, phoneNumber INTEGER);
+
+-- Table: Member
+CREATE TABLE Member (memberID STRING PRIMARY KEY, memberName STRING, camperID STRING REFERENCES Camper (camperID));
+
+-- Table: Session
+CREATE TABLE Session (sessionID STRING PRIMARY KEY, month STRING, dateRange STRING, sessionTime STRING, isOffered BOOLEAN, isFull BOOLEAN);
+
+-- Table: WaitList
+CREATE TABLE WaitList (camperID STRING, waitListID STRING PRIMARY KEY, classID STRING, sessionID STRING);
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
